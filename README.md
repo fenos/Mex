@@ -337,7 +337,7 @@ try
     // check if the conversation exists
     $conversation = Mex::conversation()->participants(1,2,3)->exists();
 
-    // yes exists the method above gave to me the ID of it and i send only the message
+    // yes exists, the method above give to me the ID of the conversation and i send only the message
     Mex::conversation($conversation->conversation_id)->message('Conversation exists')->from(1)->send();
 }
 catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
