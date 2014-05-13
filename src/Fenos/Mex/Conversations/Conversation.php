@@ -133,10 +133,21 @@ class Conversation {
      * Crete a new conversation
      *
      * @param $information_conversation
+     * @throws \InvalidArgumentException
      * @return $this
      */
     public function create($information_conversation)
     {
+        if (!array_key_exists('founder_id',$information_conversation))
+        {
+            throw new \InvalidArgumentException('You must specify the founder id');
+        }
+
+        if (is_null($this->participants))
+        {
+            throw new \InvalidArgumentException('You must specify minimum 2 participants');
+        }
+
         $conversation_created = $this->conversationRepo->create($information_conversation);
 
         $this->conversation_id = $conversation_created->id;
@@ -275,10 +286,11 @@ class Conversation {
     /**
      * Get messages of a conversation
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @param array $filters
      * @throws \BadMethodCallException
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
-    public function get()
+    public function get(array $filters = [])
     {
         $partecipants = $this->participants;
         $from = $this->from;
@@ -306,14 +318,15 @@ class Conversation {
         // try to get messages
         $conversation = $this->exists();
 
-        return $this->conversationRepo->getMessagesById($conversation->conversation_id,$from);
+        return $this->conversationRepo->getMessagesById($conversation->conversation_id,$from,$filters);
     }
 
     /**
-     * @return mixed
+     * @param array $filters
      * @throws \BadMethodCallException
+     * @return mixed
      */
-    public function getArchived()
+    public function getArchived(array $filters = [])
     {
         $from = $this->from;
 
@@ -333,7 +346,7 @@ class Conversation {
         // try to get messages
         $this->exists();
 
-        return $this->conversationRepo->getMessagesOnArchivedConversation($this->conversation_id,$from);
+        return $this->conversationRepo->getMessagesOnArchivedConversation($this->conversation_id,$from,$filters);
 
     }
 
@@ -342,10 +355,11 @@ class Conversation {
      * an Id partecipant, it retrive the following data:
      * conversations | participants | info participants | last message
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @param array $filters
      * @throws \InvalidArgumentException
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function lists()
+    public function lists(array $filters = [])
     {
         $partecipant = $this->from;
 
@@ -357,7 +371,7 @@ class Conversation {
         }
 
         // get list :)
-        return $this->conversationRepo->getLists($partecipant);
+        return $this->conversationRepo->getLists($partecipant,$filters);
 
     }
 
@@ -366,10 +380,11 @@ class Conversation {
      * an Id partecipant, it retrive the following data:
      * conversations | participants | info participants | last message
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @param array $filters
      * @throws \InvalidArgumentException
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function archivedLists()
+    public function archivedLists(array $filters = [])
     {
         $partecipant = $this->from;
 
@@ -381,7 +396,7 @@ class Conversation {
         }
 
         // get list :)
-        return $this->conversationRepo->getArchivedLists($partecipant);
+        return $this->conversationRepo->getArchivedLists($partecipant,$filters);
 
     }
 

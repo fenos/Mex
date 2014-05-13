@@ -63,10 +63,11 @@ class ConversationRepository {
      *
      * @param $conversation_id
      * @param bool|null $from
+     * @param $filters
      * @throws \Fenos\Mex\Exceptions\ConversationNotFoundException
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
-    public function getMessagesById($conversation_id,$from)
+    public function getMessagesById($conversation_id,$from,$filters)
     {
         // get the conversation information
         if (!is_null($from))
@@ -88,13 +89,16 @@ class ConversationRepository {
             {
                 // the method from() has been used so i get the messages without the deleted messages
                 // of this partecipant
-                return $conversation->load(['participants.participant','messages' => function($messages) use($from, $conversation_id){
-                        $messages->whereNotExists(function($query) use($from, $conversation_id){
+                return $conversation->load(['participants.participant','messages' => function($messages) use($from, $conversation_id,$filters){
+                        $messages->whereNotExists(function($query) use($from, $conversation_id,$filters){
                             $query->select($this->db->raw($from))
                                   ->from('deleted_messages')
                                   ->whereRaw('deleted_messages.message_id = messages.id')
                                   ->where('messages.participant_id',$from);
                         })->where('conversation_id',$conversation_id);
+
+                        $this->addFilters($messages,$filters);
+
                     }, 'messages.participant']);
             }
 
@@ -111,22 +115,26 @@ class ConversationRepository {
      *
      * @param $conversation_id
      * @param $from
-     * @return mixed
+     * @param $filters
      * @throws \Fenos\Mex\Exceptions\ConversationNotFoundException
+     * @return mixed
      */
-    public function getMessagesOnArchivedConversation($conversation_id, $from)
+    public function getMessagesOnArchivedConversation($conversation_id, $from,$filters)
     {
         $conversationArchived = $this->conversationArchived($conversation_id, $from);
 
         if (!is_null($conversationArchived))
         {
-            return $conversationArchived->load(['participants.participant','messages' => function($messages) use($from, $conversation_id){
+            return $conversationArchived->load(['participants.participant','messages' => function($messages) use($from, $conversation_id, $filters){
                     $messages->whereNotExists(function($query) use($from, $conversation_id){
                         $query->select($this->db->raw($from))
                             ->from('deleted_messages')
                             ->whereRaw('deleted_messages.message_id = messages.id')
                             ->where('messages.participant_id',$from);
                     })->where('conversation_id',$conversation_id);
+
+                    $this->addFilters($messages,$filters);
+
                 }, 'messages.participant']);
         }
 
@@ -147,14 +155,15 @@ class ConversationRepository {
 
     /**
      * Return lists of conversations with participants
-     * participants informations, and last message of the conversation
+     * informations, and last message of the conversation
      *
      * @param $from
+     * @param $filters
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getLists($from)
+    public function getLists($from,$filters)
     {
-        return $this->conversation->with(['participants.partecipant','messages' => function($message) use($from) {
+        $conversation = $this->conversation->with(['participants.participant','messages' => function($message) use($from) {
 
                     $message->whereNotExists(function($query) use($from){
 
@@ -172,12 +181,16 @@ class ConversationRepository {
 
                  }])->whereNotExists(function ($conv) use ($from) {
 
-                $conv->select($this->db->raw($from))
-                        ->from('deleted_conversations')
-                        ->whereRaw('deleted_conversations.conversation_id = conversations.id')
-                        ->where('deleted_conversations.participant_id', $from);
+                        $conv->select($this->db->raw($from))
+                                ->from('deleted_conversations')
+                                ->whereRaw('deleted_conversations.conversation_id = conversations.id')
+                                ->where('deleted_conversations.participant_id', $from);
 
-            })->get();
+            });
+
+            $this->addFilters($conversation,$filters);
+
+            return $conversation->get();
     }
 
     /**
@@ -185,11 +198,12 @@ class ConversationRepository {
      * participants informations, and last message of the conversation
      *
      * @param $from
+     * @param $filters
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getArchivedLists($from)
+    public function getArchivedLists($from,$filters)
     {
-        return $this->conversation->with(['participants.partecipant','messages' => function($message) use($from) {
+        $conversationLists = $this->conversation->with(['participants.partecipant','messages' => function($message) use($from) {
 
                 $message->whereNotExists(function($query) use($from){
 
@@ -212,8 +226,11 @@ class ConversationRepository {
                     ->whereRaw('deleted_conversations.conversation_id = conversations.id')
                     ->where('deleted_conversations.participant_id', $from)
                     ->where('deleted_conversations.archived','=',0);
+            });
 
-            })->get();
+        $this->addFilters($conversationLists,$filters);
+
+        return $conversationLists->get();
     }
 
     /**
@@ -350,5 +367,36 @@ class ConversationRepository {
         }
 
         return false;
+    }
+
+    /**
+     * Add filters to the selects queries
+     *
+     * @param $objectBuilder
+     * @param array $filters
+     */
+    public function addFilters($objectBuilder,array $filters)
+    {
+        if (count($filters) > 0)
+        {
+            foreach($filters as $key => $filter)
+            {
+                if ($key == "orderBy")
+                {
+                    $field = 'created_at';
+                    $objectBuilder->{$key}($field,$filter);
+                }
+
+                if ($key == "limit")
+                {
+                    $objectBuilder->{$key}($filter);
+                }
+
+                if ($key == "paginate")
+                {
+                    return $objectBuilder->{$key}($filter);
+                }
+            }
+        }
     }
 }

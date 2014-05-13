@@ -246,7 +246,7 @@ class ConversationTest extends PHPUnit_Framework_TestCase {
 
         $this->convRepo->shouldReceive('getMessagesById')
             ->once()
-            ->with(1,null)
+            ->with(1,null,[])
             ->andReturn(m::mock('Illuminate\Database\Eloquent\Collection'));
 
         $result = $conversation->get();
@@ -275,7 +275,7 @@ class ConversationTest extends PHPUnit_Framework_TestCase {
 
         $this->convRepo->shouldReceive('getMessagesById')
             ->once()
-            ->with(1,1)
+            ->with(1,1,[])
             ->andReturn(m::mock('Illuminate\Database\Eloquent\Collection'));
 
         $result = $conversation->get();
@@ -301,7 +301,7 @@ class ConversationTest extends PHPUnit_Framework_TestCase {
 
         $this->convRepo->shouldReceive('getMessagesOnArchivedConversation')
             ->once()
-            ->with(1,1)
+            ->with(1,1,[])
             ->andReturn(m::mock('Fenos\Mex\Models\Conversation'));
 
         $result = $conversation->getArchived();
@@ -327,7 +327,7 @@ class ConversationTest extends PHPUnit_Framework_TestCase {
 
         $this->convRepo->shouldReceive('getLists')
             ->once()
-            ->with($partecipants)
+            ->with($partecipants,[])
             ->andReturn(m::mock('Fenos\Mex\Models\Conversation'));
 
         $result = $this->conversation->lists();
@@ -351,7 +351,7 @@ class ConversationTest extends PHPUnit_Framework_TestCase {
 
         $this->convRepo->shouldReceive('getArchivedLists')
             ->once()
-            ->with($partecipants)
+            ->with($partecipants,[])
             ->andReturn(m::mock('Fenos\Mex\Models\Conversation'));
 
         $result = $this->conversation->archivedlists();

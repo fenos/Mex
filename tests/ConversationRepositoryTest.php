@@ -90,7 +90,7 @@ class ConversationRepositoryTest extends PHPUnit_Framework_TestCase {
 
             ->andReturn($this->conversationModel);
 
-        $result = $convRepo->getMessagesById(1,1);
+        $result = $convRepo->getMessagesById(1,1,[]);
 
         $this->assertInstanceOf('Fenos\Mex\Models\Conversation',$result);
     }
@@ -108,7 +108,7 @@ class ConversationRepositoryTest extends PHPUnit_Framework_TestCase {
             ->with(['participants.participant','messages', 'messages.participant'])
             ->andReturn($this->conversationModel);
 
-        $result = $convRepo->getMessagesById(1,null);
+        $result = $convRepo->getMessagesById(1,null,[]);
 
         $this->assertInstanceOf('Fenos\Mex\Models\Conversation',$result);
 
@@ -126,7 +126,7 @@ class ConversationRepositoryTest extends PHPUnit_Framework_TestCase {
             ->once()
             ->andReturn($this->conversationModel);
 
-        $result = $convRepo->getMessagesOnArchivedConversation(1,1);
+        $result = $convRepo->getMessagesOnArchivedConversation(1,1,[]);
 
         $this->assertInstanceOf('Fenos\Mex\Models\Conversation',$result);
     }
@@ -146,7 +146,7 @@ class ConversationRepositoryTest extends PHPUnit_Framework_TestCase {
             ->andReturn($this->conversationModel);
 
 
-        $result = $this->convRepo->getLists(1);
+        $result = $this->convRepo->getLists(1,[]);
         $this->assertInstanceOf('Fenos\Mex\Models\Conversation',$result);
     }
 
@@ -165,7 +165,7 @@ class ConversationRepositoryTest extends PHPUnit_Framework_TestCase {
             ->andReturn($this->conversationModel);
 
 
-        $result = $this->convRepo->getArchivedLists(1);
+        $result = $this->convRepo->getArchivedLists(1,[]);
         $this->assertInstanceOf('Fenos\Mex\Models\Conversation',$result);
     }
 
