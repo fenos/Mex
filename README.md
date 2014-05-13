@@ -19,8 +19,8 @@ straightforward, Now you have the tools for build your own multi partecipants ch
     * [Force remove Conversations](#force-remove-conversations)
 * [Messages](#messages)
     * [Send Messages](#send-messages)
-    * [Get Messages Conversation](#get-messages-conversation]
-    * [Delete Messages](#delete-messages]
+    * [Get Messages Conversation](#get-messages-conversation)
+    * [Delete Messages](#delete-messages)
 * [Note](#note)
 * [Credits](#credits)
 
