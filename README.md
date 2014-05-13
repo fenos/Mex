@@ -14,7 +14,7 @@ straightforward, Now you have the tools for build your own multi partecipants ch
     * [Conversation Exists](#conversation-exists)
     * [Create Conversations](#create-conversations)
     * [Archive & Restore Conversations](#archive--restore-conversations)
-    * [Join & Leave Conversations](#join---leave-conversations)
+    * [Join & Leave Conversations](#join--leave-conversations)
     * [Lists Conversations](#lists-conversations)
     * [Force remove Conversations](#force-remove-conversations)
 * [Messages](#messages)
