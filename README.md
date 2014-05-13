@@ -5,8 +5,7 @@ Mex
 [![License](https://poser.pugx.org/fenos/mex/license.png)](https://packagist.org/packages/fenos/mex)
 [![Latest Stable Version](https://poser.pugx.org/fenos/mex/v/stable.png)](https://packagist.org/packages/fenos/mex)
 
-Mex is a simple but powerfull Api for build a internal multi participants chat system. This Api come with a lots feautres, and the synstax is pretty
-straightforward, Now you have the tools for build your own multi partecipants chat with laravel 4. Enjoy it.
+Hi guys, I want to present Mex, Mex is a simple but powerful API for build a internal multi participants chat system. This API come with a lots features, and the syntax is pretty straightforward, Now you have the tools for build your own multi participants chat with laravel 4. Enjoy it.
 
 * [Installation](#installation)
 * [Documentation](#documentation)
@@ -50,7 +49,7 @@ Add the following string to **app/config/app.php**
 **Aliases array:**
 
 ~~~
-'Notifynder'	=> 'Fenos\Mex\Facades\Mex'
+'Mex'	=> 'Fenos\Mex\Facades\Mex'
 ~~~
 
 ### Step 3 ###
@@ -338,7 +337,7 @@ try
     // check if the conversation exists
     $conversation = Mex::conversation()->participants(1,2,3)->exists();
 
-    // yes exists the method above gave to me the ID of it and i send only the message
+    // yes exists, the method above give to me the ID of the conversation and i send only the message
     Mex::conversation($conversation->conversation_id)->message('Conversation exists')->from(1)->send();
 }
 catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
