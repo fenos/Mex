@@ -13,11 +13,11 @@ straightforward, Now you have the tools for build your own multi partecipants ch
 * [Conversations](#conversations)
     * [Conversation Exists](#conversation-exists)
     * [Create Conversations](#create-conversations)
-    * [Archive & Restore Conversations](#archive-&-restore-conversations)
-    * [Join & Leave Conversations](#join-&-leave-conversations)
+    * [Archive & Restore Conversations](#archive--restore-conversations)
+    * [Join & Leave Conversations](#join---leave-conversations)
     * [Lists Conversations](#lists-conversations)
     * [Force remove Conversations](#force-remove-conversations)
-* [Messages]
+* [Messages](#messages)
     * [Send Messages](#send-messages)
     * [Get Messages Conversation](#get-messages-conversation]
     * [Delete Messages](#delete-messages]
@@ -151,8 +151,8 @@ Mex::conversation()->participants(1,2,3)->create(['founder_id' => 1]);
 
 ~~~
 
-So what's going on here I'm telling to `Mex` that i'm working with the a `conversation`, but I know, that I need to create it
-so I pass the participants that will have fun to chat, and then I pass the founder id in an array easy hum?.
+So what's going on here I'm telling to `Mex` that i'm working with a `conversation`, and I know, that I need to create it,
+so I pass the participants that "will have fun to chat", and then I pass the founder id in an array easy hum?.
 
 Keep in mind that the `founder_id` must be specified but you can even omit it on the participants values/array.
 
@@ -164,12 +164,13 @@ $participants = [1,2,3];
 $founder = Auth::user()->id;
 try
 {
-    Mex::conversation()->participants($participants)->exist();
+    Mex::conversation()->participants($participants)->exists();
 
-    // here means that exists so you can just send a message on a conversation Will see it later :)
+    // here means that exists so you can just send a message in the conversation we will see it later
 }
 catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
 {
+    // conversation not found
     Mex::conversation()->participants($participants)->create(['founder_id' => $founder]);
 }
 
@@ -209,7 +210,7 @@ catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
 ~~~
 
 How you saw here I used a new method called `from()` this method is really important for determinate who does the action.
-Because do you know that if the `user with ID 1` archive the conversation that even `User ID 2` is in only `User ID 1` will have it on archived
+Because do you know that if the `user with ID 1` archive the conversation that even `User ID 2` is in, **only** `User ID 1` will have it as archived,
 while the user 2 still normal. So speicfy always the user with `from()` when you do any action that focus only 1 User.
 
 ##### Restore #####
@@ -231,7 +232,7 @@ You can use even partecipants method here.
 
 #### Lists Conversations ####
 
-Do you need to retrive a nice lists of the conversations that the current user has started or has been invited? Ok well use this one:
+Do you need to retrive a nice lists of the conversations that the current user has started or has been invited? Ok well use this one,
 but keep in mind that the archived conversations will be not showed here.
 
 What you aspect from this method? Lists of conversations / informations participants / last message sent
@@ -251,7 +252,7 @@ Mex::conversation()->from($user_id)->lists( array('limit' => 10,'orderBy' => 'DE
 Mex::conversation()->from($user_id)->lists( array(['orderBy' => 'ASC', 'paginate' => 10) );
 ~~~
 
-If instead you need to retrive the archived lists of conversations you this method:
+If instead you need to retrive the archived lists of conversations you use this method:
 
 ~~~
 // you can have the parameters as above
@@ -395,6 +396,8 @@ Mex::conversation($conversation_id)->from(1)->get(['limit' => 10,'orderBy' => 'D
 Mex::conversation($conversation_id)->from(1)->get(['orderBy' => 'DESC','paginate' => '10']); // paginate as last paramater of the array
 ~~~
 
+Also Important, you can retrive the messages of conversations "active" and "Archived" but **Not conversation that has been ForceDeleted** it will throw `ConversationNotFoundException`
+
 ### Delete Messages ###
 
 The good feature of deleting messages is that only the user that delete the message will not see it anymore but the others participants still see it.
@@ -417,9 +420,11 @@ catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
 
 ### Note ###
 
-How you can see this is the first realease and it seem to promises well. Soon if time permit Mex will have new features already designed.
+How you can see this is the first realease and it seem to promises well. Soon if time permit `Mex` will have new features already designed.
 Example it will come Polymorphic as well, how you can see on the migration files the tables are already setted for it :).
 For the rest feautures will come out more as surprise. :)
+
+I made it with <3
 
 ### Tests ###
 
