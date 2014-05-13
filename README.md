@@ -49,7 +49,7 @@ Add the following string to **app/config/app.php**
 **Aliases array:**
 
 ~~~
-'Notifynder'	=> 'Fenos\Mex\Facades\Mex'
+'Mex'	=> 'Fenos\Mex\Facades\Mex'
 ~~~
 
 ### Step 3 ###
