@@ -5,8 +5,7 @@ Mex
 [![License](https://poser.pugx.org/fenos/mex/license.png)](https://packagist.org/packages/fenos/mex)
 [![Latest Stable Version](https://poser.pugx.org/fenos/mex/v/stable.png)](https://packagist.org/packages/fenos/mex)
 
-Mex is a simple but powerfull Api for build a internal multi participants chat system. This Api come with a lots feautres, and the synstax is pretty
-straightforward, Now you have the tools for build your own multi partecipants chat with laravel 4. Enjoy it.
+Hi guys, I want to present Mex, Mex is a simple but powerful API for build a internal multi participants chat system. This API come with a lots features, and the syntax is pretty straightforward, Now you have the tools for build your own multi participants chat with laravel 4. Enjoy it.
 
 * [Installation](#installation)
 * [Documentation](#documentation)
