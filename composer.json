@@ -1,0 +1,29 @@
+{
+    "name": "fenos/mex",
+    "description": "Multi participants Chat API for laravel 4",
+    "keywords": ["Chat", "API chat", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabrizio Fenoglio",
+            "email": "fabri_feno@yahoo.it"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "mockery/mockery": "dev-master@dev"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Fenos\\Mex\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
