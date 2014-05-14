@@ -60,14 +60,8 @@ class MessageTest extends PHPUnit_Framework_TestCase {
         $result = $this->message->from(1);
 
         $this->assertInstanceOf('Fenos\Mex\Messages\Message',$result);
-    }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * */
-    public function test_from_participant_is_not_a_number()
-    {
-        $result = $this->message->from('Must be a number');
+        $this->assertEquals($this->message->getFrom(),1);
     }
 
     public function test_send_message()
