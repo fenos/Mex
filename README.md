@@ -98,11 +98,12 @@ The code that you will use, in few words, always, for initialize a conversation 
 Mex::conversation($conversation_id);
 ~~~
 
-Or another one that you will use less but does the same thing "Initialize a conversation" but this time not passing the ID of the conversation
-but the participants that belongs the conversation.
+Another useful method is `participants`, with it you can retrive conversations knowing only the participants ID
+But be aware that when a conversation is started you have to get it having the conversation id. Because if any of the participants
+join or leave the conversation the conversation will have a different numbers of participants and for retrive it again you
+have to pass the new participants that was joined or without who leaved the conversation.
 
-So let's say that you want to check if `user with ID 1` as a conversation with `user 3 and 4` you will use the method `participants` for initialize
-the current conversation **If exists**
+The participants method is not used
 
 ~~~
 Mex::conversation()->participants(1,2,3,4);
@@ -125,7 +126,7 @@ catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
 }
 ~~~
 
-**Having only the participants ID** (This check you will use it on creating a conversation)
+**Having only the participants ID**
 
 ~~~
 try
@@ -139,11 +140,11 @@ catch(\Fenos\Mex\Exceptions\ConversationNotFoundException $e)
 ~~~
 
 On the `participants()` method you will pass the IDS of the participants "Users" (for now). But remember that you can
-pass an even an **array** of them!
+pass even an **array** of them!
 
 #### Create Conversations ####
 
-For create conversations is really easy, Let me show the code is more easy to explain in this case. Then review it.
+For create conversations is really easy, Let me show the code, it is more easy show it then explain it in this case. Then review it.
 
 ~~~
 // this will create a multi conversation between users 1 - 2 and 3
@@ -152,7 +153,7 @@ Mex::conversation()->participants(1,2,3)->create(['founder_id' => 1]);
 ~~~
 
 So what's going on here I'm telling to `Mex` that i'm working with a `conversation`, and I know, that I need to create it,
-so I pass the participants that "will have fun to chat", and then I pass the founder id in an array easy hum?.
+so I pass the participants that "will start to chat", and then I pass the founder id in an array easy hum?.
 
 Keep in mind that the `founder_id` must be specified but you can even omit it on the participants values/array.
 
