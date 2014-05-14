@@ -2,6 +2,7 @@ Mex
 ==========
 
 [![Build Status](https://travis-ci.org/fenos/Mex.svg?branch=1.0.0)](https://travis-ci.org/fenos/Mex)
+[![ProjectStatus](http://stillmaintained.com/fenos/Mex.png)](http://stillmaintained.com/fenos/Mex)
 [![License](https://poser.pugx.org/fenos/mex/license.png)](https://packagist.org/packages/fenos/mex)
 [![Latest Stable Version](https://poser.pugx.org/fenos/mex/v/stable.png)](https://packagist.org/packages/fenos/mex)
 
