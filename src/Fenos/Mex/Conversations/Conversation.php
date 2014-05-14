@@ -184,22 +184,35 @@ class Conversation {
      */
     public function exists()
     {
-        $partecipants = $this->participants;
+        $participants = $this->participants;
 
         // check if the developer pass the participants ID or the ID
         // of the conversation for check if it exists. If the developer
         // doesn't provide any of them will get an exception. You need to specified
         // one of them
-        if (is_null($partecipants) and is_null($this->conversation_id))
+        if (is_null($participants) and is_null($this->conversation_id))
         {
             throw new \BadMethodCallException('participants or conversation ID Not specified');
+        }
+
+        // I can pass the if of the current user that want to check if the conversation
+        // exists on the method from(). So i can have the lists of participants on the method
+        // participants and the session ID on the from() method
+        if (!is_null($this->from) and !is_null($participants))
+        {
+            // search if for some reason there is already that id in
+            // participants values
+            if( array_search($this->from,$participants) === false )
+            {
+                $participants[] = $this->from;
+            }
         }
 
         // If you don't pass the Id of the conversation means that
         // you wanna check the conversation by participants ID
         if ( is_null($this->conversation_id) )
         {
-            $exist = $this->conversationJoined->checkByPartecipantsId($partecipants);
+            $exist = $this->conversationJoined->checkByPartecipantsId($participants);
         }
         else
         {
@@ -220,11 +233,11 @@ class Conversation {
      */
     public function join()
     {
-        $partecipants = func_get_args();
+        $participants = func_get_args();
 
-        if (is_array($partecipants[0]))
+        if (is_array($participants[0]))
         {
-            $partecipants = $partecipants[0];
+            $participants = $participants[0];
         }
 
         // check if the conversation exists between the current participants
@@ -235,23 +248,23 @@ class Conversation {
         // we need also to check if the current user to join is already
         // on the current conversation we don't want the same user
         // 2 times in the same conversation
-        $partecipants = $this->conversationJoined->areNewPartecipants($conversation->conversation_id,$partecipants);
+        $participants = $this->conversationJoined->areNewPartecipants($conversation->conversation_id,$participants);
 
         // If you don't pass the Id of the conversation means that
         // you wanna add participants giving the participants ID
         // of the current conversation
         if ( is_null( $this->conversation_id ) )
         {
-            if (count($partecipants) > 0)
+            if (count($participants) > 0)
             {
-                return $this->conversationJoined->addPartecipants($partecipants,$conversation->conversation_id);
+                return $this->conversationJoined->addPartecipants($participants,$conversation->conversation_id);
             }
         }
         else
         {
-            if (count($partecipants) > 0)
+            if (count($participants) > 0)
             {
-                return $this->conversationJoined->addPartecipants($partecipants,$this->conversation_id);
+                return $this->conversationJoined->addPartecipants($participants,$this->conversation_id);
 
             }
         }
