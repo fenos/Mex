@@ -75,11 +75,6 @@ class Message {
      */
     public function from($id)
     {
-        if ( !is_int($id) )
-        {
-            throw new \InvalidArgumentException('The id must be a number');
-        }
-
         $this->from = $id;
 
         return $this;
@@ -149,4 +144,10 @@ class Message {
     {
         $this->conversation_id = $conversation_id;
     }
+
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
 }
