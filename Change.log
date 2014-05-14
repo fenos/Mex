@@ -5,5 +5,9 @@ with the method getConversation()
 
 Version 1.0.1
 
-Added possibility to specify the id session of the user that want to check if the conversation exists giving participants ID with the from() so you don't have to push the value
-in the array of particinpants Mex::conversation()->from(1)->participants(2,3)->exist();
+Added possibility to specify the id session of the user that want to check if the conversation exists giving participants ID, with the from() method, so you don't have to push the value
+in the array of particinpants. Mex::conversation()->from(1)->participants(2,3)->exist();
+
+Version 1.0.2
+
+Delete Exception of int in the `from()` method, Class Message
