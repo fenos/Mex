@@ -1,0 +1,2 @@
+Added Getter on the Conversation Class it give you the possibility to get the conversation after has been created
+with the method getConversation()

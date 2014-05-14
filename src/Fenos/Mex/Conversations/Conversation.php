@@ -35,6 +35,11 @@ class Conversation {
     protected $participants;
 
     /**
+     * @var $conversation
+     */
+    protected $conversation;
+
+    /**
      * @var $from
      */
     protected $from;
@@ -149,6 +154,10 @@ class Conversation {
         }
 
         $conversation_created = $this->conversationRepo->create($information_conversation);
+
+        // you can get the conversation using the getter GetConversation
+        // after the conversation has been created
+        $this->conversation = $conversation_created;
 
         $this->conversation_id = $conversation_created->id;
 
@@ -569,6 +578,14 @@ class Conversation {
     public function setFrom($from)
     {
         $this->from = $from;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConversation()
+    {
+        return $this->conversation;
     }
 
     /**
