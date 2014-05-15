@@ -97,7 +97,7 @@ class Conversation {
      */
     public function from($id)
     {
-        if ( !is_int($id) )
+        if ( !is_numeric($id) )
         {
             throw new ConversationNotFoundException('Conversation not found');
         }
@@ -166,7 +166,7 @@ class Conversation {
         // not inserted at all
         if ( !in_array($information_conversation['founder_id'],$this->participants) )
         {
-            $partecipats[] = $information_conversation['founder_id'];
+            $this->participants[] = $information_conversation['founder_id'];
         }
 
         $this->conversationJoined->addPartecipants($this->participants,$this->conversation_id);
@@ -202,7 +202,7 @@ class Conversation {
         {
             // search if for some reason there is already that id in
             // participants values
-            if( array_search($this->from,$participants) === false )
+            if( in_array($this->from,$participants) === false )
             {
                 $participants[] = $this->from;
             }
