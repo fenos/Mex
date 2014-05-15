@@ -67,18 +67,15 @@ php artisan migrate --package="fenos/mex"
 
 #### Include relations ###
 
-Mex will be bring it to be polymorphic on the next releases so even if now is not, you have to place this 2 relations on your `User` Model
+For include the realtions that mex will need to know you have just to import the Following trait on your model siply like so
 
 ~~~
 
-    public function conversations()
+    class User extends Eloquent
     {
-        return $this->morphToMany('Fenos\Mex\Models\ConversationJoined', 'participant');
-    }
 
-    public function messages()
-    {
-        return $this->morphToMany('Fenos\Mex\Models\Messages', 'participant');
+        use \Fenos\Mex\Models\MexRelations;
+
     }
 
 ~~~
