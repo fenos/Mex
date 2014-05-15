@@ -17,3 +17,7 @@ Version 1.0.3
 - Fixed Create() conversation, auto adding founder ID on participants Array
 - Fixed Exists() method, auto adding the from() value in participants array
 - Changed check on from() method Class Conversation
+
+Version 1.0.4
+
+- Added Trait to import in the model to manage relations
