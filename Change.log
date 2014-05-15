@@ -11,3 +11,9 @@ in the array of particinpants. Mex::conversation()->from(1)->participants(2,3)->
 Version 1.0.2
 
 Delete Exception of int in the `from()` method, Class Message
+
+Version 1.0.3
+
+- Fixed Create() conversation, auto adding founder ID on participants Array
+- Fixed Exists() method, auto adding the from() value in participants array
+- Changed check on from() method Class Conversation
