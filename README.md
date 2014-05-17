@@ -100,8 +100,6 @@ But be aware that when a conversation is started you have to get it having the c
 join or leave the conversation the conversation will have a different numbers of participants and for retrive it again you
 have to pass the new participants that was joined or without who leaved the conversation.
 
-The participants method is not used
-
 ~~~
 Mex::conversation()->participants(1,2,3,4);
 ~~~
