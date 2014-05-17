@@ -21,3 +21,7 @@ Version 1.0.3
 Version 1.0.4
 
 - Added Trait to import in the model to manage relations
+
+Version 1.0.5
+
+- Added filter on lists() ans archivedLists() for exclude the founder id in the participants results
