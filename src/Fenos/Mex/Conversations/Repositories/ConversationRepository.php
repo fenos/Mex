@@ -167,7 +167,7 @@ class ConversationRepository {
 
                 if (array_key_exists('founder',$filters))
                 {
-                    if ($filters['founder'])
+                    if (!$filters['founder'])
                     {
                         $query->where('id','!=',$from);
                     }
@@ -217,7 +217,7 @@ class ConversationRepository {
 
                 if (array_key_exists('founder',$filters))
                 {
-                    if ($filters['founder'])
+                    if (!$filters['founder'])
                     {
                         $query->where('id','!=',$from);
                     }
