@@ -169,7 +169,7 @@ class ConversationRepository {
                 {
                     if (!$filters['founder'])
                     {
-                        $query->where('id','!=',$from);
+                        $query->where('participant_id','!=',$from);
                     }
                 }
 
@@ -219,7 +219,7 @@ class ConversationRepository {
                 {
                     if (!$filters['founder'])
                     {
-                        $query->where('id','!=',$from);
+                        $query->where('participant_id','!=',$from);
                     }
                 }
 
