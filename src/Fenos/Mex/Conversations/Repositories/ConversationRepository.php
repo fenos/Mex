@@ -163,7 +163,17 @@ class ConversationRepository {
      */
     public function getLists($from,$filters)
     {
-        $conversation = $this->conversation->with(['participants.participant','messages' => function($message) use($from) {
+        $conversation = $this->conversation->with(['participants.participant','participants' => function($query) use ($from,$filters){
+
+                if (array_key_exists('founder',$filters))
+                {
+                    if ($filters['founder'])
+                    {
+                        $query->where('id','!=',$from);
+                    }
+                }
+
+            },'messages' => function($message) use($from) {
 
                     $message->whereNotExists(function($query) use($from){
 
@@ -203,7 +213,17 @@ class ConversationRepository {
      */
     public function getArchivedLists($from,$filters)
     {
-        $conversationLists = $this->conversation->with(['participants.partecipant','messages' => function($message) use($from) {
+        $conversationLists = $this->conversation->with(['participants.partecipant','participants' => function($query) use ($from,$filters){
+
+                if (array_key_exists('founder',$filters))
+                {
+                    if ($filters['founder'])
+                    {
+                        $query->where('id','!=',$from);
+                    }
+                }
+
+            }, 'messages' => function($message) use($from) {
 
                 $message->whereNotExists(function($query) use($from){
 

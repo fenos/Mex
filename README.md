@@ -250,6 +250,14 @@ Mex::conversation()->from($user_id)->lists( array('limit' => 10,'orderBy' => 'DE
 Mex::conversation()->from($user_id)->lists( array(['orderBy' => 'ASC', 'paginate' => 10) );
 ~~~
 
+**New filter**
+
+if you want exclude the founder informations inside the participants results pass use the filter `founder` with false value like so:
+
+~~~
+Mex::conversation()->from($user_id)->lists( array(['orderBy' => 'ASC', 'paginate' => 10, 'founder' => false) );
+~~~
+
 If instead you need to retrive the archived lists of conversations you use this method:
 
 ~~~
