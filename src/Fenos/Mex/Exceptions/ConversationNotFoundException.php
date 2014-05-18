@@ -11,4 +11,4 @@ namespace Fenos\Mex\Exceptions;
 
 class ConversationNotFoundException extends \Exception {
 
-} 
+}

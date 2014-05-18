@@ -258,4 +258,4 @@ class ConversationJoinedRepositoryTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals($result,[3,[1,2,3,3,1,2,3]]);
     }
 
-} 
+}

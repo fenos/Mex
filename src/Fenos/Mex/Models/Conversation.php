@@ -44,4 +44,4 @@ class Conversation extends Model{
         return $this->hasMany('Fenos\Mex\Models\Message','conversation_id');
     }
 
-} 
+}
