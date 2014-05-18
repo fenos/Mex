@@ -75,8 +75,28 @@ class ConversationTest extends PHPUnit_Framework_TestCase {
     {
         $result = $this->conversation->participants(1,2,3);
 
+        $this->assertEquals([1,2,3],$this->conversation->getParticipants());
+
         $this->assertInstanceOf('Fenos\Mex\Conversations\Conversation',$result);
 
+    }
+
+    public function test_getter_participants_having_from_method_as_well_omitting_on_participants()
+    {
+        $result = $this->conversation->from(1)->participants(2,3);
+
+        $this->assertEquals([1,2,3],$this->conversation->getParticipants());
+
+        $this->assertInstanceOf('Fenos\Mex\Conversations\Conversation',$result);
+    }
+
+    public function test_getter_participants_having_from_method_as_well_both_ids()
+    {
+        $result = $this->conversation->from(1)->participants(1,2,3);
+
+        $this->assertEquals([1,2,3],$this->conversation->getParticipants());
+
+        $this->assertInstanceOf('Fenos\Mex\Conversations\Conversation',$result);
     }
 
     /**
