@@ -35,4 +35,4 @@ class Message extends Model {
     {
         return $this->belongsTo('Fenos\Mex\Models\Conversation');
     }
-} 
+}

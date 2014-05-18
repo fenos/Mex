@@ -39,4 +39,4 @@ class DeletedConversation extends Model {
         $obj = $query->where('conversation_id',$conversation_id)->where('participant_id',$participant_id)->first();
         return $obj ?: new static;
     }
-} 
+}

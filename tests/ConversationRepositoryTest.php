@@ -282,4 +282,4 @@ class ConversationRepositoryTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('Fenos\Mex\Models\DeletedConversation',$result);
     }
 }
- 
+

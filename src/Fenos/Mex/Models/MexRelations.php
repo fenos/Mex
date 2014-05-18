@@ -17,4 +17,4 @@ trait MexRelations {
         return $this->morphMany('Fenos\Mex\Models\Messages', 'participant');
     }
 
-} 
+}

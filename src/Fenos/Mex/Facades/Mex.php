@@ -20,4 +20,4 @@ class Mex extends Facade{
      */
     protected static function getFacadeAccessor() { return 'mex'; }
 
-} 
+}

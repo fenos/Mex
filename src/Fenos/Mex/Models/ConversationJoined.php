@@ -41,4 +41,4 @@ class ConversationJoined extends Model {
         return $this->belongsTo('Mex\Fenos\Models\Conversation','conversation_id');
     }
 
-} 
+}

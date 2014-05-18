@@ -40,4 +40,4 @@ class DeletedMessage extends Model {
                     ->where('message_id',$message_id)->first();
         return $obj ?: new static;
     }
-} 
+}
