@@ -115,21 +115,33 @@ class Conversation {
      */
     public function participants()
     {
-        $partecipants = func_get_args();
+        $participants = func_get_args();
 
-        if (is_array($partecipants[0]))
+        if (is_array($participants[0]))
         {
-            $partecipants = $partecipants[0];
+            $participants = $participants[0];
+        }
+
+        if (!is_null($this->from))
+        {
+
+            // search if for some reason there is already that id in
+            // participants values
+            if( in_array($this->from,$participants) === false )
+            {
+                array_unshift($participants,$this->from);
+            }
+
         }
 
         // the participants of a conversation are minimum 2
         // don't talk alone is sad.
-        if (count($partecipants) < 2)
+        if (count($participants) < 2)
         {
             throw new \InvalidArgumentException('method [participants] require minimum 2 values or an array with 2 values');
         }
 
-        $this->participants = $partecipants;
+        $this->participants = $participants;
 
         return $this;
     }
@@ -193,19 +205,6 @@ class Conversation {
         if (is_null($participants) and is_null($this->conversation_id))
         {
             throw new \BadMethodCallException('participants or conversation ID Not specified');
-        }
-
-        // I can pass the if of the current user that want to check if the conversation
-        // exists on the method from(). So i can have the lists of participants on the method
-        // participants and the session ID on the from() method
-        if (!is_null($this->from) and !is_null($participants))
-        {
-            // search if for some reason there is already that id in
-            // participants values
-            if( in_array($this->from,$participants) === false )
-            {
-                $participants[] = $this->from;
-            }
         }
 
         // If you don't pass the Id of the conversation means that
