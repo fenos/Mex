@@ -25,3 +25,9 @@ Version 1.0.4
 Version 1.0.5
 
 - Added filter on lists() ans archivedLists() for exclude the founder id in the participants results
+
+Version 1.0.6
+
+- If you have a conversation with only one user the participants method was required 2 participants so you had to pass the id user
+session and the other user id, but now you can easily chain the from method with id user session and omitting it in participants method
+ $this->mex->conversation()->from($user->id)->paticipants($otherUser_id)->exists();
